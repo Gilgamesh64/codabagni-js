@@ -9,6 +9,7 @@ if(!isset($input_data['operation'])) exit;
 
 if($input_data['operation'] == 'select') applySelect();
 if($input_data['operation'] == 'insert') applyInsert();
+if($input_data['operation'] == 'proceed') applyProceed();
 
 function applySelect(){
 	global $conn, $input_data;
@@ -31,26 +32,21 @@ function applySelect(){
 
 function applyInsert(){
     global $conn, $input_data;
-    $date = $input_data['date'];
-    $client = $input_data['client'];
-
-    mysqli_begin_transaction($conn);
+    $name = $input_data['name'];
+    $bathroom_id = $input_data['bathroom'];
 
 
-    $sql = "INSERT INTO hoteldata (date, client) VALUES ('$date', '$client')";
+    $sql = "INSERT INTO queue (name, bathroom) VALUES ('$name', '$bathroom_id')";
     mysqli_query($conn, $sql);
 
+	echo json_encode("OK!");
+}
 
-    $sql = "SELECT date FROM hoteldata WHERE date='$date';";
-    $result = mysqli_query($conn, $sql);
-    $data = mysqli_num_rows($result);
+function applyProceed() {
+    global $conn, $input_data;
 
-    if($data > 1){
-        mysqli_rollback($conn);
-        echo json_encode("Rollback");
-    } 
-    else{
-        mysqli_commit($conn);
-        echo json_encode("Commit");
-    } 
+    $sql = "DELETE from queue limit 1";
+    mysqli_query($conn, $sql);
+
+	echo json_encode("OK!");
 }
