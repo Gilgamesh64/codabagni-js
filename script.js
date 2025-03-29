@@ -1,54 +1,34 @@
+let userID = document.cookie.split("; ").find((e) => e.startsWith("userID="))?.split("=")[1];
+let fetchHandler
 async function getData(){
-    response = await fetch("./fetchHandler.php",
-        { 
-            method: "POST",
-            mode: "cors",
-            headers: {
-            "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ 'operation': 'select' })
-        }
-    )
-    .then(response => {
-        return response.json();
-    })
-    .then(json => {
-        return json;
-    });
+    response = await doFetch({ 'operation': 'select' });
 
     console.log(response)
 }
 
 async function insertData(){
-    response = await fetch("./fetchHandler.php",
-        { 
-            method: "POST",
-            mode: "cors",
-            headers: {
-            "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ 'operation': 'insert', 'name': getCookie('userID'), 'bathroom': 1 })
-        }
-    )
-    .then(response => {
-        return response.json();
-    })
-    .then(json => {
-        return json;
-    });
+    
+    response = await doFetch({ 'operation': 'insert', 'name': userID, 'bathroom': 1 });
 
     console.log(response)
 }
 
 async function proceedQueue(){
-    response = await fetch("./fetchHandler.php",
+    response = await doFetch({ 'operation': 'proceed', 'name': userID, 'bathroom': 1});
+
+    console.log(response)
+}
+
+async function doFetch(args = {}){
+    console.log(args)
+    response = await fetch("./api/fetchHandler.php",
         { 
             method: "POST",
             mode: "cors",
             headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/x-www-form-urlencoded",
             },
-            body: JSON.stringify({ 'operation': 'proceed' })
+            body: new URLSearchParams(args),
         }
     )
     .then(response => {
@@ -57,25 +37,5 @@ async function proceedQueue(){
     .then(json => {
         return json;
     });
-
-    console.log(response)
+    return response;
 }
-
-
-
-function getCookie(cname) {
-    let name = cname + "=";
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let ca = decodedCookie.split(';');
-    for(let i = 0; i <ca.length; i++) {
-      let c = ca[i];
-      while (c.charAt(0) == ' ') {
-        c = c.substring(1);
-      }
-      if (c.indexOf(name) == 0) {
-        return c.substring(name.length, c.length);
-      }
-    }
-    return "";
-  }
-  

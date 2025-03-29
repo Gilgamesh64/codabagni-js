@@ -9,10 +9,10 @@ function randstr(int $length = 8, string $keyspace = '0123456789abcdefghijklmnop
     return implode('', $pieces);
 }
 
-function doQuery($conn, $query, $vars, &...$_)
+function doQuery($conn, $query, $vars = "", &...$_)
 {
     $statement = mysqli_prepare($conn, $query);
-    if (isset($vars) && isset($_)) {
+    if ($vars != "" && isset($_)) {
         $statement->bind_param($vars, ...$_);
     }
     $statement->execute();
