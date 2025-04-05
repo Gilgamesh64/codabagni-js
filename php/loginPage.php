@@ -2,48 +2,57 @@
 
 <style>
     body {
+        background-color: lightskyblue;
         text-align: center;
         justify-items: center;
     }
+    
+    #titoloContainer {
+    display: flex;
+    justify-content: center;
+}
+
+#titolo {
+    color: white;
+    text-shadow: 2px 3px 0px black;
+    font-weight: bolder;
+    font-size: 72px;
+}
 
     form {
-        border: 2px inset blueviolet;
+        background-color: cornflowerblue;
+        color: white;
+        zoom: 200%;
+        width: fit-content;
+        border: 5px solid blue;
+        border-radius: 25px;
         justify-items: center;
         padding: 5px;
-        box-shadow: 4px 4px 3px black;
+        box-shadow: 0px 5px 0px white;
         margin-top: 2%;
     }
 
     input:invalid {
-        background-color: lightpink;
+        background-color: aquamarine;
     }
 
     #login,
     #register {
+        background-color: aquamarine;
+        border: 3px solid blue;
+        border-radius: 100px;
         margin-top: 2px;
         margin-inline: 2px;
     }
 </style>
-
+<div id="titoloContainer">
+    <div id="titolo">Coda Bagni</div>
+</div>  
 <form method="post">
-    <table>
-        <tr>
-            <td>
-                <label>User</label>
-            </td>
-            <td>
-                <input type="text" name="userID" pattern="^\S+$" required />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label>Password</label>
-            </td>
-            <td>
-                <input type="password" name="userPassword" pattern="^\S+$" required />
-            </td>
-        </tr>
-    </table>
+                <label>User</label><br>
+                <input type="text" name="userID" pattern="^\S+$" required /><br><br>
+                <label>Password</label><br>
+                <input type="password" name="userPassword" pattern="^\S+$" required /><br><br>
     <button type="submit" name="submit" id="login" value="login">Login</button>
     <button type="submit" name="submit" id="register" value="register">Register</button>
 </form>
