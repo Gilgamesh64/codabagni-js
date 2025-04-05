@@ -6,6 +6,12 @@ include 'php/utils.php';
 if ($submit == "logout") {
     session_unset();
     session_destroy();
+    setcookie("userID", $userID, time() - 6000, "/");
+    setcookie("token", $tokenStr, array(
+        'expires' => time() - 6000,
+        'path' => "/",
+        'secure' => true,
+    ));
     header("Refresh:0");
     return;
 }
