@@ -36,7 +36,7 @@ class DBconn
 
 	function getQueues()
 	{
-		$result = doQuery(self::$conn, "SELECT * from queue");
+		$result = doQuery(self::$conn, "SELECT * from queue ORDER BY onEntry ASC");
 		$output_data = [];
 		while ($row = mysqli_fetch_row($result)) {
 			$output_data[] = $row;
@@ -51,12 +51,12 @@ class DBconn
 
 	function queueGoOn($bathroom_id)
 	{
-		doQuery(self::$conn, "DELETE from queue where bathroom = ? limit 1", "i", ...[$bathroom_id]);
+		doQuery(self::$conn, "DELETE from queue where bathroom = ? ORDER BY onEntry ASC limit 1", "i", ...[$bathroom_id]);
 	}
 
 	function checkQueueTop($name, $bathroom_id)
 	{
-		$topOne = mysqli_fetch_assoc(doQuery(self::$conn, "SELECT * from queue where bathroom = ? limit 1", "i", ...[$bathroom_id]));
+		$topOne = mysqli_fetch_assoc(doQuery(self::$conn, "SELECT * from queue where bathroom = ? ORDER BY onEntry ASC limit 1", "i", ...[$bathroom_id]));
 		return $topOne["name"] == $name;
 	}
 }

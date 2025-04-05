@@ -48,7 +48,7 @@
                     <label>Password</label>
                 </td>
                 <td>
-                    <input type="text" name="userPassword" pattern="^\S+$" required />
+                    <input type="password" name="userPassword" pattern="^\S+$" required />
                 </td>
             </tr>
         </table>
