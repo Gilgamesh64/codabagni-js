@@ -1,0 +1,42 @@
+body {
+    /*background-image: url(texture-bagno.png);*/
+    background-color: lightskyblue;
+    /*background-repeat: repeat;*/
+    background-position: 0;
+}
+
+#titoloContainer {
+    display: flex;
+    justify-content: center;
+}
+
+#titolo {
+    color: white;
+    text-shadow: 2px 3px 0px black;
+    font-weight: bolder;
+    font-size: 72px;
+}
+
+#contenitoreBagni {
+    display: flex;
+    margin-top: 30px;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+button {
+    background-color: white;
+    border: 5px solid black;
+    padding: 30px;
+    font-size: 24px;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 100px;
+}
+
+button:active {
+    background-color: dodgerblue;
+    color: white;
+}
