@@ -1,6 +1,6 @@
 
-function fetchData(){
-    fetch("../fetchHandler.php")
+function fetchData() {
+    fetch("./api/fetchHandler.php")
         .then(response => {
             return response.json();
         })
@@ -9,10 +9,10 @@ function fetchData(){
 
             data.innerHTML = '';
 
-            for(var i in json){
+            for (var i in json) {
                 let row = json[i];
-                data.innerHTML += 
-                `
+                data.innerHTML +=
+                    `
                 <div id="data">
                 <div id="dataContent">
                         ${row['Name']}
@@ -20,14 +20,14 @@ function fetchData(){
                 </div>
                 `;
             }
-            
+
         })
 }
 
 
 function prenotare() {
     var btn1 = document.getElementById('btn1');
-    if(btn1.innerHTML == "PRENOTA") {
+    if (btn1.innerHTML == "PRENOTA") {
         btn1.innerHTML = "SONO TORNATO";
         btn1.style.backgroundColor = '#DC143C';
         btn1.style.color = 'white';
@@ -37,5 +37,5 @@ function prenotare() {
         btn1.style.color = 'black';
     }
 
-    
+
 }

@@ -1,32 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
+<title>Document</title>
+<link rel="stylesheet" href="./frontend/index.css" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="index.css">
-</head>
-
-<body>
-    <script>
-        window.addEventListener("load", (event) => {
-            fetchData();
-        });
-    </script>
-
-    <div id="titoloContainer">
-        <div id="titolo">Coda Bagni</div>
-    </div>
-    <div id="titoloContainer"><button id="btn1" onclick="prenotare()">PRENOTA</button></div>
-    <div id="flexColumn">
-        <div id="generalDataContainer">
-            <div style="float: left;" id="data">
-                <div id="dataContent"></div>
-            </div>
+<div id="titoloContainer">
+    <div id="titolo">Coda Bagni</div>
+</div>
+<div id="titoloContainer"><button id="btn1" onclick="prenotare()">PRENOTA</button></div>
+<div id="flexColumn">
+    <div id="generalDataContainer">
+        <div style="float: left;" id="data">
+            <div id="dataContent"></div>
         </div>
     </div>
-    <script src="script.js"></script>
-</body>
-
-</html>
+</div>
+<script src="./frontend/script.js"></script>
+<script>
+    window.addEventListener("load", (event) => {
+        fetchData();
+    });
+</script>

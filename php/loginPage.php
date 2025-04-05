@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login page</title>
-</head>
+<title>Login page</title>
 
 <style>
     body {
@@ -32,32 +25,28 @@
     }
 </style>
 
-<body>
-    <form method="post">
-        <table>
-            <tr>
-                <td>
-                    <label>User</label>
-                </td>
-                <td>
-                    <input type="text" name="userID" pattern="^\S+$" required />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label>Password</label>
-                </td>
-                <td>
-                    <input type="password" name="userPassword" pattern="^\S+$" required />
-                </td>
-            </tr>
-        </table>
-        <button type="submit" name="submit" id="login" value="login">Login</button>
-        <button type="submit" name="submit" id="register" value="register">Register</button>
-    </form>
-    <?php
-    echo $rejected;
-    ?>
-</body>
-
-</html>
+<form method="post">
+    <table>
+        <tr>
+            <td>
+                <label>User</label>
+            </td>
+            <td>
+                <input type="text" name="userID" pattern="^\S+$" required />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Password</label>
+            </td>
+            <td>
+                <input type="password" name="userPassword" pattern="^\S+$" required />
+            </td>
+        </tr>
+    </table>
+    <button type="submit" name="submit" id="login" value="login">Login</button>
+    <button type="submit" name="submit" id="register" value="register">Register</button>
+</form>
+<?php
+echo $rejected;
+?>
