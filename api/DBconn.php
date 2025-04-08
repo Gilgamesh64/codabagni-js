@@ -44,6 +44,16 @@ class DBconn
 		return $output_data;
 	}
 
+	function getBathrooms()
+	{
+		$result = doQuery(self::$conn, "SELECT * from bathrooms");
+		$output_data = [];
+		while ($row = mysqli_fetch_row($result)) {
+			$output_data[] = $row;
+		}
+		return $output_data;
+	}
+
 	function insert($name, $bathroom_id)
 	{
 		doQuery(self::$conn, "INSERT INTO queue (name, bathroom) VALUES (?, ?)", "si", ...[$name, $bathroom_id]);

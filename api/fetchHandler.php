@@ -7,12 +7,16 @@ require_once 'DBconn.php';
 $DBconn = DBconn::getInstance();
 
 if (!isset($_POST['operation'])) {
-	echo json_encode("NO FUCKING OPERATION GIVEN DICKHEAD");
+	echo json_encode("No operation given");
 	exit;
 }
 
 switch ($_POST['operation']) {
-	case 'select': {
+	case 'get_bathrooms': {
+		echo json_encode($DBconn->getBathrooms());
+		break;
+	}
+	case 'get_queue': {
 		echo json_encode($DBconn->getQueues());
 		break;
 	}
@@ -35,7 +39,8 @@ switch ($_POST['operation']) {
 		break;
 	}
 	default: {
-		echo json_encode("KILL YOURSELF");
+		http_response_code(400);
+		echo json_encode("Operation not supported");
 		die();
 	}
 }
