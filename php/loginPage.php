@@ -32,6 +32,12 @@
         margin-top: 2%;
     }
 
+    input {
+        border: 2px solid blue;
+    }
+    input:valid {
+        background-color: azure;
+    }
     input:invalid {
         background-color: aquamarine;
     }
