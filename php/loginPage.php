@@ -20,6 +20,11 @@
         font-size: 72px;
     }
 
+    @media only screen and (max-width: 768px) {
+    #form {
+        zoom: 175%;
+    }
+  }
     form {
         background-color: cornflowerblue;
         color: white;
@@ -71,7 +76,7 @@
 <div id="titoloContainer">
     <div id="titolo">Coda Bagni</div>
 </div>
-<form method="post">
+<form id="form" method="post">
     <label>User</label><br>
     <input type="text" name="userID" pattern="^\S+$" placeholder="Name" title="Name with no spaces." required /><br><br>
     <label>Password</label><br>
