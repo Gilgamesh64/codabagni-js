@@ -17,7 +17,15 @@ switch ($_POST['operation']) {
 		break;
 	}
 	case 'get_queue': {
-		echo json_encode($DBconn->getQueues());
+
+		if(!isset($_COOKIE["bathroom"])){
+			echo json_encode(("No bathroom selected"));
+			exit();
+		} 
+		$bathroom_id = $_COOKIE["bathroom"];
+		
+
+		echo json_encode($DBconn->getQueues($bathroom_id));
 		break;
 	}
 	case 'insert': {

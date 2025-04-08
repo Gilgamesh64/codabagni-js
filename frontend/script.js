@@ -1,27 +1,33 @@
-
-function fetchData() {
-    fetch("./api/fetchHandler.php")
+function fetchQueue() {
+    fetch("./api/fetchHandler.php",
+        {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: new URLSearchParams({ "operation": "get_queue"}),
+        }
+    )
         .then(response => {
             return response.json();
         })
         .then(json => {
             let data = document.getElementById('generalDataContainer');
-
             data.innerHTML = '';
-
+            console.log(json)
             for (var i in json) {
                 let row = json[i];
                 data.innerHTML +=
                     `
                 <div id="data">
                 <div id="dataContent">
-                        ${row['Name']}
+                        ${row[0]}
                 </div>
                 </div>
                 `;
             }
-
-        })
+        });
 }
 
 
