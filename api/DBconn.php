@@ -54,6 +54,11 @@ class DBconn
 		return $output_data;
 	}
 
+	function isAlreadyInQueue($username, $bathroom_id):bool{
+		$result = doQuery(self::$conn, "SELECT * from queue WHERE bathroom = $bathroom_id AND name = '$username'");
+		return !mysqli_fetch_row($result) == null;
+	}
+
 	function insert($name, $bathroom_id)
 	{
 		doQuery(self::$conn, "INSERT INTO queue (name, bathroom) VALUES (?, ?)", "si", ...[$name, $bathroom_id]);
