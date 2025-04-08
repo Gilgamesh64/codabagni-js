@@ -34,9 +34,9 @@ class DBconn
 		return mysqli_fetch_assoc(doQuery(self::$conn, "SELECT * FROM tokens WHERE id = ? AND token = ?;", "ss", ...[$loggedUser, $token])) != null;
 	}
 
-	function getQueues()
+	function getQueues($bathroom_id)
 	{
-		$result = doQuery(self::$conn, "SELECT * from queue ORDER BY onEntry ASC");
+		$result = doQuery(self::$conn, "SELECT * from queue WHERE bathroom = $bathroom_id ORDER BY onEntry ASC");
 		$output_data = [];
 		while ($row = mysqli_fetch_row($result)) {
 			$output_data[] = $row;
@@ -52,6 +52,11 @@ class DBconn
 			$output_data[] = $row;
 		}
 		return $output_data;
+	}
+
+	function isAlreadyInQueue($username, $bathroom_id):bool{
+		$result = doQuery(self::$conn, "SELECT * from queue WHERE bathroom = $bathroom_id AND name = '$username'");
+		return !mysqli_fetch_row($result) == null;
 	}
 
 	function insert($name, $bathroom_id)

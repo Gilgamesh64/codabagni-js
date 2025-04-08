@@ -17,23 +17,57 @@ switch ($_POST['operation']) {
 		break;
 	}
 	case 'get_queue': {
-		echo json_encode($DBconn->getQueues());
+
+		if(!isset($_COOKIE["bathroom"])){
+			echo json_encode(("No bathroom selected"));
+			exit();
+		} 
+		$bathroom_id = $_COOKIE["bathroom"];
+		
+
+		echo json_encode($DBconn->getQueues($bathroom_id));
 		break;
 	}
 	case 'insert': {
-		$name = $_POST['name'];
-		$bathroom_id = $_POST['bathroom'];
+		if(!isset($_COOKIE["bathroom"]) || !isset($_COOKIE["userID"])){
+			echo json_encode(("No bathroom or user selected"));
+			exit();
+		} 
+		$name = $_COOKIE["userID"];
+		$bathroom_id = $_COOKIE["bathroom"];
+
+		if($DBconn->isAlreadyInQueue($name, $bathroom_id)){
+			echo json_encode("Already in queue");
+			exit();
+		}
+
 		$DBconn->insert($name, $bathroom_id);
 		echo json_encode("Insert Successfull!");
 		break;
 	}
-	case 'proceed': {
-		$name = $_POST['name'];
-		$bathroom_id = $_POST['bathroom'];
-		if (!$DBconn->checkQueueTop($name, $bathroom_id)) {
-			echo json_encode("You are not on top of the queue");
+	case 'is_top': {
+		if(!isset($_COOKIE["bathroom"]) || !isset($_COOKIE["userID"])){
+			echo json_encode(("No bathroom or user selected"));
+			exit();
+		} 
+		$name = $_COOKIE["userID"];
+		$bathroom_id = $_COOKIE["bathroom"];
+
+		if($DBconn->isAlreadyInQueue($name, $bathroom_id)){
+			echo json_encode("true");
 			exit();
 		}
+		echo json_encode("false");
+		break;
+	}
+	case 'proceed': {
+		if(!isset($_COOKIE["bathroom"]) || !isset($_COOKIE["userID"])){
+			echo json_encode(("No bathroom or user selected"));
+			exit();
+		} 
+		$name = $_COOKIE["userID"];
+		$bathroom_id = $_COOKIE["bathroom"];
+		
 		$DBconn->queueGoOn($bathroom_id);
 		echo json_encode("Queue proceeded!");
 		break;
