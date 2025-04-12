@@ -1,4 +1,4 @@
-setInterval(fetchQueue, 1000);
+setInterval(fetchQueue, 500);
 
 let is_in_queue = false;
 let is_on_top = false;
@@ -20,7 +20,7 @@ async function fetchQueue() {
                         ${row[0]}
                     </div>
                 </div>
-                `;
+            `;
     }
     updateState();
 }
