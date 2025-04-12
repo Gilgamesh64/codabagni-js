@@ -5,6 +5,24 @@ body {
     background-position: 0;
 }
 
+#logout {
+    position: absolute;
+    float: left;
+    background-color: red;
+    border-radius: 15px;
+    color: white;
+}
+
+@media only screen and (min-width: 768px) {
+    #logout {
+        padding: 15px;
+        zoom: 115%;
+    }
+    #titoloContainer {
+        zoom: 175%;
+    }
+  }
+
 #titoloContainer {
     display: flex;
     justify-content: center;
