@@ -15,10 +15,10 @@ async function fetchQueue() {
         let row = response[i];
         data.innerHTML +=
             `
-                <div id="data">
-                <div id="dataContent">
+                <div style="float: left;" id="data">
+                    <div id="dataContent">
                         ${row[0]}
-                </div>
+                    </div>
                 </div>
                 `;
     }

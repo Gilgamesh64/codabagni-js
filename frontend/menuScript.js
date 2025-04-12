@@ -15,7 +15,7 @@ function fetchBathrooms(){
         return response.json();
     })
     .then(json => {
-        let form = document.getElementById("form");
+        let form = document.getElementById("contenitoreBagni");
         
         for (var i in json) {
             let row = json[i];

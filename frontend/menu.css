@@ -1,25 +1,25 @@
 body {
-    /*background-image: url(texture-bagno.png);*/
     background-color: lightskyblue;
-    /*background-repeat: repeat;*/
-    background-position: 0;
+}
+
+#logoutContainer {
+    display: flex;
+    justify-content: center;
 }
 
 #logout {
-    position: absolute;
+    border: 3px solid black;
+    font-size: 16px;
+    position: relative;
     float: left;
     background-color: red;
     border-radius: 15px;
     color: white;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (max-width: 768px) {
     #logout {
         padding: 15px;
-        zoom: 115%;
-    }
-    #titoloContainer {
-        zoom: 175%;
     }
   }
 
@@ -45,13 +45,14 @@ body {
 }
 
 button {
+    margin-top: 15px;
     background-color: white;
     border: 5px solid black;
     padding: 30px;
     font-size: 24px;
     width: fit-content;
     height: fit-content;
-    border-radius: 100px;
+    border-radius: 15px;
 }
 
 button:active {

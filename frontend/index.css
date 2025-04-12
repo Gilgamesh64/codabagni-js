@@ -5,6 +5,25 @@ background-color: lightskyblue;
 background-position: 0;
 }
 
+#goBackContainer {
+    display: flex;
+    justify-content: center;
+}
+
+#goBack {
+    margin-top: 15px;
+    border: 3px solid black;
+    padding: 30px;
+    font-size: 16px;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 15px;
+    position: relative;
+    float: left;
+    background-color: red;
+    color: white;
+}
+
 #titoloContainer {
     display: flex;
     justify-content: center;
@@ -27,7 +46,7 @@ background-position: 0;
     background-color: #60F360;
     color: black;
     border: 3px solid black;
-    border-radius: 100px;
+    border-radius: 15px;
     padding: 5px;
     font-size: 18px;
     width: 10%;
@@ -35,6 +54,9 @@ background-position: 0;
 }
 
 @media only screen and (max-width: 768px) {
+    #goBack {
+        padding: 15px;
+    }
     #btn1 {
         width: 50%;
     }
@@ -56,7 +78,7 @@ background-position: 0;
 #data {
     margin-top: 20px;
         border: 5px solid black;
-        border-radius: 100px;
+        border-radius: 15px;
         background-color: cornflowerblue;
         color: black;
         font-size: 24px;
