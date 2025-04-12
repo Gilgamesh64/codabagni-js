@@ -2,6 +2,7 @@ setInterval(fetchQueue, 1000);
 
 let is_in_queue = false;
 let is_on_top = false;
+updateState();
 
 async function fetchQueue() {
 
@@ -21,25 +22,20 @@ async function fetchQueue() {
                 </div>
                 `;
     }
-    is_on_top = await doFetch({"operation": "is_top"});
-    console.log(is_on_top)
+    updateState();
 }
 
 
 async function prenotare() {
     if (!is_in_queue) {
         doFetch({ "operation": "insert" });
-        is_in_queue = true;
-        fetchQueue(); //updates is_on_top
-        updateBtnColor();
-
     } else {
         doFetch({ "operation": "exit" });
-        is_in_queue = false;
-        is_on_top = false;
-        fetchQueue(); //updates is_on_top
-        updateBtnColor();
     }
+
+    fetchQueue(); 
+
+    updateState();
 }
 
 async function doFetch(args = {}) {
@@ -62,8 +58,9 @@ async function doFetch(args = {}) {
     return response;
 }
 
-function updateBtnColor(){
+async function updateBtnColor(){
     var btn1 = document.getElementById('btn1');
+
     if(!is_in_queue){
         btn1.innerHTML = "PRENOTA";
         btn1.style.backgroundColor = '#60F360';
@@ -76,7 +73,15 @@ function updateBtnColor(){
     }
     else{
         btn1.innerHTML = "ESCI";
-        btn1.style.backgroundColor = '#DC143C';
+        btn1.style.backgroundColor = 'orange';
         btn1.style.color = 'white';
     }
+}
+
+async function updateState(){
+    is_in_queue = await doFetch({"operation": "is_in_queue"}) == "true" ? true : false;
+    is_on_top = await doFetch({"operation": "is_top"}) == "true" ? true : false;
+
+    //console.log(is_in_queue + " " + is_on_top);
+    updateBtnColor();
 }

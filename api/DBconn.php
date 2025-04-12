@@ -72,6 +72,6 @@ class DBconn
 	function checkQueueTop($name, $bathroom_id)
 	{
 		$topOne = mysqli_fetch_assoc(doQuery(self::$conn, "SELECT * from queue where bathroom = ? ORDER BY onEntry ASC limit 1", "i", ...[$bathroom_id]));
-		return $topOne["name"] == $name;
+		return $topOne == null ? false : $topOne["name"] == $name;
 	}
 }
