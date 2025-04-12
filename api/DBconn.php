@@ -64,14 +64,14 @@ class DBconn
 		doQuery(self::$conn, "INSERT INTO queue (name, bathroom) VALUES (?, ?)", "si", ...[$name, $bathroom_id]);
 	}
 
-	function queueGoOn($bathroom_id)
+	function exitQueue($name, $bathroom_id)
 	{
-		doQuery(self::$conn, "DELETE from queue where bathroom = ? ORDER BY onEntry ASC limit 1", "i", ...[$bathroom_id]);
+		doQuery(self::$conn, "DELETE from queue where name = ? AND bathroom = ?", "si", ...[$name, $bathroom_id]);
 	}
 
 	function checkQueueTop($name, $bathroom_id)
 	{
 		$topOne = mysqli_fetch_assoc(doQuery(self::$conn, "SELECT * from queue where bathroom = ? ORDER BY onEntry ASC limit 1", "i", ...[$bathroom_id]));
-		return $topOne["name"] == $name;
+		return $topOne == null ? false : $topOne["name"] == $name;
 	}
 }

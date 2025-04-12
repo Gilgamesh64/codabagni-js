@@ -45,7 +45,7 @@ switch ($_POST['operation']) {
 		echo json_encode("Insert Successfull!");
 		break;
 	}
-	case 'is_top': {
+	case 'is_in_queue': {
 		if(!isset($_COOKIE["bathroom"]) || !isset($_COOKIE["userID"])){
 			echo json_encode(("No bathroom or user selected"));
 			exit();
@@ -60,7 +60,22 @@ switch ($_POST['operation']) {
 		echo json_encode("false");
 		break;
 	}
-	case 'proceed': {
+	case 'is_top': {
+		if(!isset($_COOKIE["bathroom"]) || !isset($_COOKIE["userID"])){
+			echo json_encode(("No bathroom or user selected"));
+			exit();
+		} 
+		$name = $_COOKIE["userID"];
+		$bathroom_id = $_COOKIE["bathroom"];
+
+		if($DBconn->checkQueueTop($name, $bathroom_id)){
+			echo json_encode("true");
+			exit();
+		}
+		echo json_encode("false");
+		break;
+	}
+	case 'exit': {
 		if(!isset($_COOKIE["bathroom"]) || !isset($_COOKIE["userID"])){
 			echo json_encode(("No bathroom or user selected"));
 			exit();
@@ -68,10 +83,12 @@ switch ($_POST['operation']) {
 		$name = $_COOKIE["userID"];
 		$bathroom_id = $_COOKIE["bathroom"];
 		
-		$DBconn->queueGoOn($bathroom_id);
-		echo json_encode("Queue proceeded!");
+		$DBconn->exitQueue(name: $name, bathroom_id: $bathroom_id);
+		echo json_encode("Operation successfull!");
 		break;
 	}
+
+	
 	default: {
 		http_response_code(400);
 		echo json_encode("Operation not supported");

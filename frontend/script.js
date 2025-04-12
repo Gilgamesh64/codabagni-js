@@ -1,7 +1,8 @@
 setInterval(fetchQueue, 1000);
 
-let is_in_queue;
-let is_on_top;
+let is_in_queue = false;
+let is_on_top = false;
+updateState();
 
 async function fetchQueue() {
 
@@ -10,7 +11,6 @@ async function fetchQueue() {
 
     data.innerHTML = '';
 
-    console.log(response)
     for (var i in response) {
         let row = response[i];
         data.innerHTML +=
@@ -22,38 +22,20 @@ async function fetchQueue() {
                 </div>
                 `;
     }
-
-    let is_top = await doFetch({"operation": "is_top"});
-    is_on_top = is_top;
-
-    if(is_in_queue && !is_on_top){
-        var btn1 = document.getElementById('btn1');
-        btn1.innerHTML = "ESCI";
-        btn1.style.backgroundColor = '#DC143C';
-        btn1.style.color = 'white';
-    }   
+    updateState();
 }
 
 
 async function prenotare() {
-    var btn1 = document.getElementById('btn1');
-    if (btn1.innerHTML == "PRENOTA") {
-        btn1.innerHTML = "SONO TORNATO";
-        btn1.style.backgroundColor = '#DC143C';
-        btn1.style.color = 'white';
-
+    if (!is_in_queue) {
         doFetch({ "operation": "insert" });
-        is_in_queue = true;
-        fetchQueue();
-
     } else {
-        btn1.innerHTML = "PRENOTA";
-        btn1.style.backgroundColor = '#60F360';
-        btn1.style.color = 'black';
-
-        doFetch({ "operation": "proceed" });
-        fetchQueue();
+        doFetch({ "operation": "exit" });
     }
+
+    fetchQueue(); 
+
+    updateState();
 }
 
 async function doFetch(args = {}) {
@@ -74,4 +56,32 @@ async function doFetch(args = {}) {
             return json;
         });
     return response;
+}
+
+async function updateBtnColor(){
+    var btn1 = document.getElementById('btn1');
+
+    if(!is_in_queue){
+        btn1.innerHTML = "PRENOTA";
+        btn1.style.backgroundColor = '#60F360';
+        btn1.style.color = 'black';
+    }
+    else if(is_in_queue && is_on_top){
+        btn1.innerHTML = "SONO TORNATO";
+        btn1.style.backgroundColor = '#DC143C';
+        btn1.style.color = 'white';
+    }
+    else{
+        btn1.innerHTML = "ESCI";
+        btn1.style.backgroundColor = 'orange';
+        btn1.style.color = 'white';
+    }
+}
+
+async function updateState(){
+    is_in_queue = await doFetch({"operation": "is_in_queue"}) == "true" ? true : false;
+    is_on_top = await doFetch({"operation": "is_top"}) == "true" ? true : false;
+
+    //console.log(is_in_queue + " " + is_on_top);
+    updateBtnColor();
 }
