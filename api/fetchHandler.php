@@ -60,7 +60,7 @@ switch ($_POST['operation']) {
 		echo json_encode("false");
 		break;
 	}
-	case 'proceed': {
+	case 'exit': {
 		if(!isset($_COOKIE["bathroom"]) || !isset($_COOKIE["userID"])){
 			echo json_encode(("No bathroom or user selected"));
 			exit();
@@ -68,8 +68,8 @@ switch ($_POST['operation']) {
 		$name = $_COOKIE["userID"];
 		$bathroom_id = $_COOKIE["bathroom"];
 		
-		$DBconn->queueGoOn($bathroom_id);
-		echo json_encode("Queue proceeded!");
+		$DBconn->exitQueue(name: $name, bathroom_id: $bathroom_id);
+		echo json_encode("Operation successfull!");
 		break;
 	}
 	default: {
