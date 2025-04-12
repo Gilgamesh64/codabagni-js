@@ -31,7 +31,7 @@
         zoom: 300%;
         width: fit-content;
         border: 5px solid blue;
-        border-radius: 25px;
+        border-radius: 15px;
         justify-items: center;
         padding: 5px;
         box-shadow: 0px 5px 0px white;
@@ -42,7 +42,7 @@
         user-select: auto;
         border: 2px solid blue;
         background-color: lightgreen;
-        border-radius: 25px;
+        border-radius: 15px;
         padding: 5px;
         transition: 0.3s;
         outline: none;
@@ -62,7 +62,7 @@
         width: 45%;
         background-color: aquamarine;
         border: 2px solid blue;
-        border-radius: 100px;
+        border-radius: 5px;
         margin-top: 2px;
         margin-inline: 2px;
     }
