@@ -3,21 +3,7 @@ session_start();
 include 'php/vars.php';
 include 'php/utils.php';
 
-if ($submit == "logout") {
-    session_unset();
-    session_destroy();
-
-    $past = time() - 3600;    
-    foreach ( $_COOKIE as $key => $value ){
-        setcookie( $key, $value, $past, '/' );
-    }
-    header("Refresh:0");
-    return;
-}
-
-if ($userID != "" && $userPassword != "") {
-    include 'php/loginning.php';
-}
+include 'php/loginning.php';
 ?>
 
 <!DOCTYPE html>

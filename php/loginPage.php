@@ -21,10 +21,11 @@
     }
 
     @media only screen and (max-width: 768px) {
-    #form {
-        zoom: 175%;
+        #form {
+            zoom: 175%;
+        }
     }
-  }
+
     form {
         background-color: cornflowerblue;
         color: white;
@@ -47,10 +48,11 @@
         transition: 0.3s;
         outline: none;
     }
-    
+
     input:focus {
         border-color: blue;
     }
+
     input:not(:placeholder-shown):invalid {
         background-color: lightcoral;
         border-color: red;

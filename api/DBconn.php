@@ -6,13 +6,9 @@ class DBconn
 	private static $instance;
 	private static $conn;
 
-	private function __construct()
-	{
-	}
+	private function __construct() {}
 
-	private function __clone()
-	{
-	}
+	private function __clone() {}
 
 	public static function getInstance()
 	{
@@ -29,21 +25,17 @@ class DBconn
 		mysqli_close(self::$conn);
 	}
 
-	function checkToken($loggedUser, $token)
+	function checkToken($user, $token)
 	{
-		return mysqli_fetch_assoc(doQuery(self::$conn, "SELECT * FROM tokens WHERE id = ? AND token = ?;", "ss", ...[$loggedUser, $token])) != null;
-	}
-
-	function getQueues($bathroom_id)
-	{
-		$result = doQuery(self::$conn, "SELECT * from queue WHERE bathroom = $bathroom_id ORDER BY onEntry ASC");
-		$output_data = [];
-		while ($row = mysqli_fetch_row($result)) {
-			$output_data[] = $row;
+		$tokenRow = mysqli_fetch_assoc(doQuery(self::$conn, "SELECT * FROM tokens WHERE name = ?;", "s", $user));
+		if ($tokenRow) {
+			$tokenStr = $tokenRow["token"];
+			if ($tokenStr == $token) return 0;
+			else return 1;
 		}
-		return $output_data;
+		return 2;
 	}
-
+	
 	function getBathrooms()
 	{
 		$result = doQuery(self::$conn, "SELECT * from bathrooms");
@@ -54,24 +46,35 @@ class DBconn
 		return $output_data;
 	}
 
-	function isAlreadyInQueue($username, $bathroom_id):bool{
-		$result = doQuery(self::$conn, "SELECT * from queue WHERE bathroom = $bathroom_id AND name = '$username'");
+	function getQueues($bathroom)
+	{
+		$result = doQuery(self::$conn, "SELECT * from queue WHERE bathroom = ? ORDER BY onEntry ASC", "i", $bathroom);
+		$output_data = [];
+		while ($row = mysqli_fetch_row($result)) {
+			$output_data[] = $row;
+		}
+		return $output_data;
+	}
+
+	function isInQueue($user, $bathroom)
+	{
+		$result = doQuery(self::$conn, "SELECT * from queue WHERE bathroom = ? AND name = ?", "is", $bathroom, $user);
 		return !mysqli_fetch_row($result) == null;
 	}
 
-	function insert($name, $bathroom_id)
+	function insert($user, $bathroom)
 	{
-		doQuery(self::$conn, "INSERT INTO queue (name, bathroom) VALUES (?, ?)", "si", ...[$name, $bathroom_id]);
+		doQuery(self::$conn, "INSERT INTO queue (name, bathroom) VALUES (?, ?)", "si", $user, $bathroom);
 	}
 
-	function exitQueue($name, $bathroom_id)
+	function exitQueue($user, $bathroom)
 	{
-		doQuery(self::$conn, "DELETE from queue where name = ? AND bathroom = ?", "si", ...[$name, $bathroom_id]);
+		doQuery(self::$conn, "DELETE from queue where name = ? AND bathroom = ?", "si", $user, $bathroom);
 	}
 
-	function checkQueueTop($name, $bathroom_id)
+	function checkQueueTop($user, $bathroom)
 	{
-		$topOne = mysqli_fetch_assoc(doQuery(self::$conn, "SELECT * from queue where bathroom = ? ORDER BY onEntry ASC limit 1", "i", ...[$bathroom_id]));
-		return $topOne == null ? false : $topOne["name"] == $name;
+		$topOne = mysqli_fetch_assoc(doQuery(self::$conn, "SELECT * from queue where bathroom = ? ORDER BY onEntry ASC limit 1", "i", $bathroom));
+		return $topOne == null ? false : $topOne["name"] == $user;
 	}
 }
