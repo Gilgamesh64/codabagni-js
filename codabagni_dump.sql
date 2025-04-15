@@ -29,19 +29,16 @@ CREATE TABLE `bathrooms` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `queue`
+-- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `queue`;
+DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `queue` (
+CREATE TABLE `users` (
   `name` varchar(255) NOT NULL,
-  `onEntry` timestamp NOT NULL DEFAULT current_timestamp(),
-  `bathroom` int(11) NOT NULL,
-  PRIMARY KEY (`name`,`bathroom`) USING BTREE,
-  CONSTRAINT `queue_ibfk_1` FOREIGN KEY (`name`) REFERENCES `users` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `queue_ibfk_2` FOREIGN KEY (`bathroom`) REFERENCES `bathrooms` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  `password` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -61,16 +58,19 @@ CREATE TABLE `tokens` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `users`
+-- Table structure for table `queue`
 --
 
-DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `queue`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `users` (
+CREATE TABLE `queue` (
   `name` varchar(255) NOT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`name`)
+  `onEntry` timestamp NOT NULL DEFAULT current_timestamp(),
+  `bathroom` int(11) NOT NULL,
+  PRIMARY KEY (`name`,`bathroom`) USING BTREE,
+  CONSTRAINT `queue_ibfk_1` FOREIGN KEY (`name`) REFERENCES `users` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `queue_ibfk_2` FOREIGN KEY (`bathroom`) REFERENCES `bathrooms` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
