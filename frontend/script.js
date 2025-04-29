@@ -8,15 +8,6 @@ async function fetchQueue() {
     let response = await doFetch({ "operation": "get_queue" });
     let data = document.getElementById('generalDataContainer');
 
-    if (response == "Session expired") {
-        clearInterval(intervalID);
-        document.cookie = "session=expired";
-        data.innerHTML = `
-            <pre>Session expired, please logout or refresh the page.</pre>
-        `;
-        return;
-    }
-
     data.innerHTML = '';
 
     for (var i in response) {
@@ -45,6 +36,8 @@ async function prenotare() {
 }
 
 async function doFetch(args = {}) {
+    var code = 200;
+
     response = await fetch("./api/fetchHandler.php", {
         method: "POST",
         mode: "cors",
@@ -53,10 +46,36 @@ async function doFetch(args = {}) {
         },
         body: new URLSearchParams(args),
     }).then(response => {
+
+        if (!response.ok) {
+            code = response.status;
+        }
+
         return response.json();
     }).then(json => {
         return json;
     });
+
+    if (code != 200) {
+        clearInterval(intervalID);
+        document.cookie = "session=expired";
+        data.innerHTML = `
+            <pre>${response}</pre>
+        `;
+        return "";
+    }
+
+    /*
+    if (response == "Session expired") {
+        clearInterval(intervalID);
+        document.cookie = "session=expired";
+        data.innerHTML = `
+            <pre>Session expired, please logout or refresh the page.</pre>
+        `;
+        return "";
+    }
+    */
+
     return response;
 }
 
@@ -84,6 +103,5 @@ async function updateState() {
     is_in_queue = await doFetch({ "operation": "is_in_queue" }) == "true" ? true : false;
     is_on_top = await doFetch({ "operation": "is_top" }) == "true" ? true : false;
 
-    //console.log(is_in_queue + " " + is_on_top);
     updateBtnColor();
 }

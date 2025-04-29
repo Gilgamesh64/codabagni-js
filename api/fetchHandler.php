@@ -9,6 +9,7 @@ header('Content-Type: application/json', true, 200);
 
 function rejectNoAction()
 {
+	http_response_code(444);
 	echo json_encode("No Action");
 	exit();
 }
@@ -29,6 +30,7 @@ function rejectBadAuth()
 
 function rejectSessionExpired()
 {
+	http_response_code(440);
 	echo json_encode("Session expired");
 	exit();
 }

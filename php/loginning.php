@@ -19,9 +19,10 @@ function activate($conn, $userID, $token)
     setcookie("token", $tokenStr, array(
         'expires' => time() + (86400 * 30),
         'path' => "/",
-        'secure' => true,
         'httponly' => true,
     ));
+    
+    //'secure' => true,
 }
 
 $str = '';
