@@ -41,8 +41,8 @@ async function fetchBathrooms() {
     */
 
     for (var i in response) {
-        let row = json[i];
-        form.innerHTML += `
+        let row = response[i];
+        document.getElementById("contenitoreBagni").innerHTML += `
             <button type="submit" name="submit" value="in${row}">Bagno ${row}</button>
         `;
     }
