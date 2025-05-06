@@ -33,7 +33,7 @@ async function fetchBathrooms() {
     }
 
     response.forEach(row => {
-        document.getElementById("contenitoreBagni").innerHTML += `
+        document.getElementById("bathroomsContainer").innerHTML += `
             <button type="submit" name="submit" value="in${row}">Bath ${row}</button>
         `;
     });
