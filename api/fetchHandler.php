@@ -17,14 +17,14 @@ function rejectNoAction()
 function rejectNotLogged()
 {
 	http_response_code(401);
-	echo json_encode("Not Logged");
+	echo json_encode("Not Logged, please refresh the page.");
 	exit();
 }
 
 function rejectBadAuth()
 {
 	http_response_code(401);
-	echo json_encode("Bad Auth Error");
+	echo json_encode("Bad Auth Error, please logout or refresh the page.");
 	exit();
 }
 
