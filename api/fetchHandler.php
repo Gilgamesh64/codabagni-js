@@ -31,7 +31,7 @@ function rejectBadAuth()
 function rejectSessionExpired()
 {
 	http_response_code(440);
-	echo json_encode("Session expired");
+	echo json_encode("Session expired, please logout or refresh the page.");
 	exit();
 }
 

@@ -36,6 +36,7 @@ async function prenotare() {
 }
 
 async function doFetch(args = {}) {
+    let data = document.getElementById('generalDataContainer');
     var code = 200;
 
     response = await fetch("./api/fetchHandler.php", {
@@ -57,24 +58,15 @@ async function doFetch(args = {}) {
     });
 
     if (code != 200) {
-        clearInterval(intervalID);
-        document.cookie = "session=expired";
+        if (code == 401) {
+            clearInterval(intervalID);
+            document.cookie = "session=expired";
+        }
         data.innerHTML = `
             <pre>${response}</pre>
         `;
         return "";
     }
-
-    /*
-    if (response == "Session expired") {
-        clearInterval(intervalID);
-        document.cookie = "session=expired";
-        data.innerHTML = `
-            <pre>Session expired, please logout or refresh the page.</pre>
-        `;
-        return "";
-    }
-    */
 
     return response;
 }

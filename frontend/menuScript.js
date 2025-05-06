@@ -23,27 +23,18 @@ async function fetchBathrooms() {
     });
 
     if (code != 200) {
-        document.cookie = "session=expired";
+        if (code == 401) {
+            document.cookie = "session=expired";
+        }
         form.innerHTML = `
             <pre>${response}</pre>
         `;
         return;
     }
 
-    /*
-    if (response == "Session expired") {
-        document.cookie = "session=expired";
-        form.innerHTML = `
-            <pre>Session expired, please logout or refresh the page.</pre>
-        `;
-        return;
-    }
-    */
-
-    for (var i in response) {
-        let row = response[i];
+    response.forEach(row => {
         document.getElementById("contenitoreBagni").innerHTML += `
             <button type="submit" name="submit" value="in${row}">Bagno ${row}</button>
         `;
-    }
+    });
 }
