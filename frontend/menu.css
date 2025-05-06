@@ -23,19 +23,19 @@ body {
     }
 }
 
-#titoloContainer {
+#titleContainer {
     display: flex;
     justify-content: center;
 }
 
-#titolo {
+#title {
     color: white;
     text-shadow: 2px 3px 0px black;
     font-weight: bolder;
     font-size: 72px;
 }
 
-#contenitoreBagni {
+#bathroomsContainer {
     display: flex;
     margin-top: 30px;
     justify-content: center;

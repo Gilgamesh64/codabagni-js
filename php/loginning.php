@@ -2,7 +2,7 @@
 $conn = mysqli_connect("localhost", "root", "", "codabagni");
 
 if (false === $conn) {
-    exit("Errore: impossibile stabilire una connessione " . mysqli_connect_error());
+    exit("Error: impossible to establish a connection " . mysqli_connect_error());
 }
 
 function activate($conn, $userID, $token)
@@ -21,8 +21,6 @@ function activate($conn, $userID, $token)
         'path' => "/",
         'httponly' => true,
     ));
-    
-    //'secure' => true,
 }
 
 $str = '';
@@ -38,14 +36,14 @@ if ($userID != "" && $userPassword != "") {
         } else if ($token) {
             $tokenStr = $token["token"];
             doQuery($conn, "DELETE FROM tokens WHERE name = ? AND token = ?", "ss", $userID, $tokenStr);
-            $_SESSION['rejected'] = "<br>Sessione scaduta.<br>";
+            $_SESSION['rejected'] = "<br>Session expired.<br>";
         } else {
-            $_SESSION['rejected'] = "<br>Password o Utente sbagliato.<br>";
+            $_SESSION['rejected'] = "<br>Invalid username or password.<br>";
         }
         header("Refresh:0");
     } else if ($submit == "register") {
         if ($user) {
-            $_SESSION['rejected'] = "<br>L'Utente esiste già!<br>";
+            $_SESSION['rejected'] = "<br>The user already exists!<br>";
         } else {
             doQuery($conn, "INSERT INTO users VALUES (?, ?);", "ss", $userID, $userPassword);
             activate($conn, $userID, $token);
