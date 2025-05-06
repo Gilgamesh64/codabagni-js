@@ -1,7 +1,5 @@
 body {
-    /*background-image: url(texture-bagno.png);*/
     background-color: lightskyblue;
-    /*background-repeat: repeat;*/
     background-position: 0;
 }
 
@@ -24,12 +22,12 @@ body {
     color: white;
 }
 
-#titoloContainer {
+#titleContainer {
     display: flex;
     justify-content: center;
 }
 
-#titolo {
+#title {
     color: white;
     text-shadow: 2px 3px 0px black;
     font-weight: bolder;
@@ -87,5 +85,3 @@ body {
     background-color: white;
     background-position: center;
 }
-
-#dataContent {}

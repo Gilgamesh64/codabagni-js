@@ -24,7 +24,7 @@ async function fetchQueue() {
 }
 
 
-async function prenotare() {
+async function book() {
     if (!is_in_queue) {
         doFetch({ "operation": "insert" });
     } else {
@@ -75,17 +75,17 @@ async function updateBtnColor() {
     var btn1 = document.getElementById('btn1');
 
     if (!is_in_queue) {
-        btn1.innerHTML = "PRENOTA";
+        btn1.innerHTML = "BOOK";
         btn1.style.backgroundColor = '#60F360';
         btn1.style.color = 'black';
     }
     else if (is_in_queue && is_on_top) {
-        btn1.innerHTML = "SONO TORNATO";
+        btn1.innerHTML = "I'M BACK";
         btn1.style.backgroundColor = '#DC143C';
         btn1.style.color = 'white';
     }
     else {
-        btn1.innerHTML = "ESCI";
+        btn1.innerHTML = "EXIT";
         btn1.style.backgroundColor = 'orange';
         btn1.style.color = 'white';
     }

@@ -8,12 +8,12 @@
         user-select: none;
     }
 
-    #titoloContainer {
+    #titleContainer {
         display: flex;
         justify-content: center;
     }
 
-    #titolo {
+    #title {
         color: white;
         text-shadow: 2px 3px 0px black;
         font-weight: bolder;
@@ -75,8 +75,8 @@
         color: white;
     }
 </style>
-<div id="titoloContainer">
-    <div id="titolo">Coda Bagni</div>
+<div id="titleContainer">
+    <div id="title">Coda Bagni</div>
 </div>
 <form id="form" method="post">
     <label>User</label><br>

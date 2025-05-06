@@ -1,7 +1,7 @@
 fetchBathrooms()
 
 async function fetchBathrooms() {
-    let form = document.getElementById("contenitoreBagni");
+    let form = document.getElementById("bathroomsContainer");
     var code = 200;
 
     response = await fetch("./api/fetchHandler.php", {
@@ -34,7 +34,7 @@ async function fetchBathrooms() {
 
     response.forEach(row => {
         document.getElementById("contenitoreBagni").innerHTML += `
-            <button type="submit" name="submit" value="in${row}">Bagno ${row}</button>
+            <button type="submit" name="submit" value="in${row}">Bath ${row}</button>
         `;
     });
 }
